@@ -1,0 +1,5 @@
+set autoupdategist
+set smoothscroll
+
+map <C-h> deleteChar
+map <C-d> deleteForwardChar
