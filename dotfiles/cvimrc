@@ -3,3 +3,6 @@ set autoupdategist
 iunmap <C-h>
 map <C-h> deleteChar
 map <C-d> deleteForwardChar
+unmap h l
+map h goBack
+map l goForward
