@@ -1,6 +1,6 @@
 set autoupdategist
 set smoothscroll
 
-unmap <C-h>
+iunmap <C-h>
 map <C-h> deleteChar
 map <C-d> deleteForwardChar
