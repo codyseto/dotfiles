@@ -51,6 +51,8 @@ set wrapscan
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EasyMotion
+map <Space> <Plug>(easymotion-prefix)
 
 " Emacs-like key-bind on command mode
 cnoremap <C-f> <Right>
@@ -69,6 +71,8 @@ inoremap [ []<Left>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
+" deoplete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Move by line in one sentence
 noremap j gj
@@ -123,6 +127,8 @@ vnoremap < <gv
 " Other settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" deoplete
+let g:deoplete#enable_at_startup = 1
 " Automatically remove trailing whitespaces on write
 au BufWritePre * :%s/\s\+$//e
 " No paste when leaving insert mode
@@ -168,10 +174,14 @@ au QuickfixCmdPost make,vimgrep copen
 
 " vim-plug setting
 call plug#begin('~/.config/nvim/plugged')
-Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tweekmonster/deoplete-clang2'
+Plug 'zchee/deoplete-jedi'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'easymotion/vim-easymotion'
 Plug 'nvie/vim-flake8'
 Plug 'bronson/vim-trailing-whitespace'
+" Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
 call plug#end()
 
-colorscheme jellybeans
+colorscheme slate
