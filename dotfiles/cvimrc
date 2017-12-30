@@ -1,8 +1,38 @@
+" Setting
+set autohidecursor
 set autoupdategist
+set completeonopen
+set noautofocus
+" set nohud
+set showtabindices
+let mapleader = ","
+" let timeoutlen = 1000
 
-iunmap <C-h>
-map <C-h> deleteChar
-map <C-d> deleteForwardChar
+" Mapping
 unmap h l
 map h goBack
+map H scrollLeft
 map l goForward
+map L scrollRight
+map e lastClosedTab
+map t :tabnew <CR>
+map <C-m> lastUsedTab
+map <Space> %
+iunmap <C-h>
+imap <C-h> deleteChar
+imap <C-d> deleteForwardChar
+imap <C-g> backwardWord
+" map <C-c> <Esc> " todo) remap Esc
+
+" qmarks
+let qmark a = ["https://www.amazon.co.jp/"]
+let qmark c = ["https://calendar.google.com"]
+let qmark d = ["https://drive.google.com"]
+let qmark e = ["https://www.evernote.com/Home.action?login=true"]
+let qmark f = ["https://www.facebook.com"]
+let qmark g = ["https://www.google.co.jp"]
+let qmark i = ["https://www.instagram.com/"]
+let qmark m = ["https://inbox.google.com"]
+let qmark s = ["https://thinkcyte.slack.com"]
+let qmark t = ["https://twitter.com"]
+let qmark y = ["https://www.youtube.com"]
