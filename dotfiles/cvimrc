@@ -15,7 +15,7 @@ map H scrollLeft
 map l goForward
 map L scrollRight
 map e lastClosedTab
-" map t :tabnew <CR> todo) highlight omnibar when new tab is created
+map t :tabnew chrome://newtab<CR>
 map <C-m> lastUsedTab
 map <Space> %
 iunmap <C-h>
