@@ -12,11 +12,12 @@ fi
 
 # Customize to your needs...
 # Alias
-alias ...="../.."
-alias ....="../../.."
-alias .....="../../../.."
-alias ......="../../../../.."
-alias .......="../../../../../.."
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
 alias gst="git status"
 alias v="nvim"
 alias vim="nvim"
