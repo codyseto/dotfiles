@@ -1,0 +1,90 @@
+# general
+export EDITOR=vim
+
+# autoload
+autoload -Uz add-zsh-hook
+autoload -Uz colors; colors
+autoload -U compinit; compinit
+autoload -Uz is-at-least
+autoload -Uz vcs_info
+autoload -Uz zmv
+
+# zstyle
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:default' menu select=1
+
+# options
+setopt auto_cd correct
+setopt auto_list
+setopt auto_menu
+setopt auto_param_keys
+setopt auto_param_slash
+setopt complete_in_word
+setopt extended_glob
+setopt globdots
+setopt interactive_comments
+setopt list_types
+setopt magic_equal_subst
+setopt mark_dirs
+setopt no_beep
+setopt no_flow_control
+setopt prompt_subst
+setopt append_history inc_append_history share_history
+setopt extended_history share_history
+setopt hist_ignore_all_dups hist_ignore_space
+
+# colorscheme
+if [ "$COLORTERM" = "gnome-terminal" ] || [ "$COLORTERM" = "xfce4-terminal" ]; then
+  export TERM=xterm-256color
+elif [ "$COLORTERM" = "rxvt-xpm" ]; then
+  export TERM=rxvt-256color
+fi
+
+# check whether tmux exists
+if builtin command -v tmux > /dev/null; then
+  if [ -z $TMUX ]; then
+    # check tmux sessions
+    if $(tmux has-session); then
+      tmux attach
+    fi
+  fi
+fi
+
+# bindkey
+bindkey -e
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+
+# history
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=100000
+SAVEHIST=100000
+
+# aliase
+case ${OSTYPE} in
+  darwin*)
+    alias ls="ls -G -F"
+    ;;
+  linux*)
+    alias ls="ls --color=auto"
+    ;;
+esac
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
+alias l="ls"
+alias la="ls -a"
+alias lla="ls -la"
+alias v="nvim"
+alias vim='nvim'
+alias tmux='tmux -u'
+alias zmv='noglob zmv -W'
+alias gst="git status"
+
+cd() {
+  builtin cd $@ && ls;
+}
