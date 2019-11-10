@@ -84,7 +84,3 @@ alias vim='nvim'
 alias tmux='tmux -u'
 alias zmv='noglob zmv -W'
 alias gst="git status"
-
-cd() {
-  builtin cd $@ && ls;
-}

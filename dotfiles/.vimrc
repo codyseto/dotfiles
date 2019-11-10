@@ -48,11 +48,12 @@ set timeout timeoutlen=300
 set whichwrap=h,l
 set wrapscan
 
+" Ctags
+set tags=./tags;,tags;
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EasyMotion
-map <Space> <Plug>(easymotion-prefix)
 
 " Emacs-like key-bind on command mode
 cnoremap <C-f> <Right>
@@ -71,12 +72,14 @@ inoremap [ []<Left>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
+
 " deoplete
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Move by line in one sentence
 noremap j gj
 noremap k gk
+
 " Easier split navigation
 noremap <C-h> <C-w><C-h>
 noremap <C-j> <C-w><C-j>
@@ -86,6 +89,7 @@ noremap <C-l> <C-w><C-l>
 " Split
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
+
 " Move window
 " nnoremap s <Nop>
 " nnoremap sJ <C-w>J
@@ -93,35 +97,55 @@ nnoremap sv :<C-u>vs<CR>
 " nnoremap sL <C-w>L
 " nnoremap sH <C-w>H
 " nnoremap sr <C-w>r
+
 " Resize window
 nnoremap <C-w>> <C-w>10>
 nnoremap <C-w>< <C-w>10<
 nnoremap <C-w>+ <C-w>10+
 nnoremap <C-w>- <C-w>10-
+
 " Yank until end
 nnoremap Y y$
+
 " Don't copy when yank
 nnoremap x "_x
+
 " Unhighlight search result
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 " nnoremap ga <Plug>(EasyAlign)
+
 " NERDTree
-nnoremap :tree :NERDTreeToggle
+nnoremap <silent><C-n> :NERDTreeToggle<CR>
+
 " Disable dangerous keys
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
+
 " vimgrep setting
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [Q :<C-u>cfirst<CR>
 nnoremap ]Q :<C-u>clast<CR>
 
-" Start interactive EasyAlign in visual mode
-" vnoremap ga <Plug>(EasyAlign)
 " Sequential Indent
 vnoremap > >gv
 vnoremap < <gv
+
+" EasyMotion (Leader"," is overlapping with default behavior)
+let g:mapleader = ","
+map <Leader>f <Plug>(easymotion-bd-f)
+map <Leader>f <Plug>(easymotion-bd-overwin-f)
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+vmap s <Plug>(easymotion-bd-f2)
+" Move to line
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>l <Plug>(easymotion-overwin-line)
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Other settings
@@ -135,13 +159,68 @@ au BufWritePre * :%s/\s\+$//e
 au InsertLeave * set nopaste
 " Automatically open quickfix-window
 au QuickfixCmdPost make,vimgrep copen
+" Color Setting
+:hi ErrorMsg ctermfg=124 ctermbg=NONE
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Neovim default setting
+" fzf
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:fzf_tags_command = 'ctags -R'
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Augmenting Ag command using fzf#vim#with_preview function
+"   * fzf#vim#with_preview([[options], [preview window], [toggle keys...]])
+"     * For syntax-highlighting, Ruby and any of the following tools are required:
+"       - Bat: https://github.com/sharkdp/bat
+"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
+"       - CodeRay: http://coderay.rubychan.de/
+"       - Rouge: https://github.com/jneen/rouge
+"
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" " Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" " Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>G :GFiles?<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>B :BLines<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>m :Mark<CR>
+nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>T :BTags<CR>
+nnoremap <Leader>a :Ag<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Below is included as Neovim default setting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " syntax enable
-"
 " set autoindent
 " set autoread
 " set backspace=indent,eol,start
@@ -180,12 +259,10 @@ Plug 'zchee/deoplete-jedi'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'nvie/vim-flake8'
 Plug 'bronson/vim-trailing-whitespace'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
 call plug#end()
-
-colorscheme slate
