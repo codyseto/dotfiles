@@ -34,14 +34,23 @@ alias gba='git branch -a'
 alias gbr='git branch -r'
 alias v="nvim"
 alias vim="nvim"
-unalias gcc
-unalias rm
+# unalias gcc
+# unalias rm
 
 # PATH
 export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
 export PATH=$PATH:/usr/local/Cellar
 export PATH=/usr/local/Cellar/ctags/5.8_1/bin:$PATH
 export PATH=/usr/local/Cellar/ctags/5.8_1/bin:$PATH
+export PATH=/usr/local/opt/php@7.2/bin:$PATH
+export PATH=/usr/local/opt/php@7.2/sbin:$PATH
+export PATH=$HOME/google-cloud-sdk/bin:$PATH
+
+# Vim Upgrade
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # CUDA
 export PATH=$PATH:/usr/local/cuda/bin
@@ -51,6 +60,7 @@ export CUDA_INC_DIR=/usr/local/cuda/bin:$CUDA_INC_DIR
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib
 
 # pyenv
+export PATH=~/.pyenv/versions/anaconda3-2.3.0/envs/py35/bin/jupyter:$PATH
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
@@ -101,7 +111,15 @@ fga(){
   git add $selected_files
 }
 
-fzf-z-search() {
+f(){
+  vim "$(fzf --preview 'head -100 {}')"
+}
+zle -N f
+#bindkey '^t' vim-fzf
+#export FZF_CTRL_T_COMMAND="vim $(fzf)"
+#export FZF_CTRL_T_OPTS="--preview 'head -100 {}'"
+
+fzf-z-search(){
     local res=$(z | sort -rn | cut -c 12- | fzf)
     if [ -n "$res" ]; then
         BUFFER+="cd $res"
@@ -114,3 +132,9 @@ zle -N fzf-z-search
 bindkey '^k' fzf-z-search
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/setoyama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/setoyama/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/setoyama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/setoyama/google-cloud-sdk/completion.zsh.inc'; fi
