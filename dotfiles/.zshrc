@@ -45,6 +45,7 @@ export PATH=/usr/local/Cellar/ctags/5.8_1/bin:$PATH
 export PATH=/usr/local/opt/php@7.2/bin:$PATH
 export PATH=/usr/local/opt/php@7.2/sbin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
+export PATH=$HOME/opt/anaconda3/bin:$PATH
 
 # Vim Upgrade
 export PATH="/usr/local/opt/ruby/bin:$PATH"
@@ -52,22 +53,12 @@ export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
-# CUDA
-export PATH=$PATH:/usr/local/cuda/bin
-export CPATH=$CPATH:/usr/local/cuda/include
-export CUDA_ROOT=/usr/local/cuda
-export CUDA_INC_DIR=/usr/local/cuda/bin:$CUDA_INC_DIR
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib
-
-# pyenv
-export PATH=~/.pyenv/versions/anaconda3-2.3.0/envs/py35/bin/jupyter:$PATH
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
-eval "$(pyenv init -)"
-export PATH=$PYENV_ROOT/versions/anaconda3-2.3.0/bin/:$PATH
-
 # NeoVim
 export XDG_CONFIG_HOME=$HOME/.config
+
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LANG=C
 
 # z
 . /usr/local/etc/profile.d/z.sh
@@ -138,3 +129,18 @@ if [ -f '/Users/setoyama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/setoya
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/setoyama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/setoyama/google-cloud-sdk/completion.zsh.inc'; fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/setoyama/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/setoyama/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/setoyama/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/setoyama/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
