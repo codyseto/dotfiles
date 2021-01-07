@@ -42,16 +42,34 @@ export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
 export PATH=$PATH:/usr/local/Cellar
 export PATH=/usr/local/Cellar/ctags/5.8_1/bin:$PATH
 export PATH=/usr/local/Cellar/ctags/5.8_1/bin:$PATH
-export PATH=/usr/local/opt/php@7.2/bin:$PATH
-export PATH=/usr/local/opt/php@7.2/sbin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
 export PATH=$HOME/opt/anaconda3/bin:$PATH
+
+export PATH=/usr/local/Cellar/php@7.2/7.2.31_1/bin:$PATH
+export PATH=/usr/local/Cellar/yarn/1.22.5/bin:$PATH
+# export PATH=/usr/local/opt/php@7.2/bin:$PATH
+# export PATH=/usr/local/opt/php@7.2/sbin:$PATH
+# export PATH="/usr/local/opt/krb5/bin:$PATH"
+# export PATH="/usr/local/opt/krb5/sbin:$PATH"
+# export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+# Android Studio
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Vim Upgrade
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+# Ruby
+export PATH=/Users/setoyama/.gem/ruby/2.6.0/bin:$PATH
+export PATH=/Users/setoyama/.gem/ruby/2.7.0/bin:$PATH
 
 # NeoVim
 export XDG_CONFIG_HOME=$HOME/.config
@@ -106,9 +124,11 @@ f(){
   vim "$(fzf --preview 'head -100 {}')"
 }
 zle -N f
-#bindkey '^t' vim-fzf
-#export FZF_CTRL_T_COMMAND="vim $(fzf)"
-#export FZF_CTRL_T_OPTS="--preview 'head -100 {}'"
+bindkey '^t' vim-fzf
+# export FZF_CTRL_T_COMMAND="vim $(fzf)"
+# export FZF_CTRL_T_OPTS="--preview 'head -100 {}'"
+export FZF_CTRL_T_COMMAND='rg -n -i --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
 
 fzf-z-search(){
     local res=$(z | sort -rn | cut -c 12- | fzf)
