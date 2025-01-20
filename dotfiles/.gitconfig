@@ -1,21 +1,24 @@
 [user]
-	name = setoyama
-	email = kotaro.setoyama@gmail.com
+  name = setoyama
+  email = kotaro.setoyama@gmail.com
+
 [core]
-	excludesfile = /Users/setoyama/.gitignore_global
-	editor = vim
+  excludesfile = /Users/setoyama/.gitignore_global
+  editor = vim
+
 [color]
-	ui = auto
+  ui = auto
+
 [merge]
-	tool = vimdiff
+  tool = vimdiff
+
 [alias]
-	co = checkout
-	f = fetch
-	s = status
-	d = diff
-	co = checkout
-	cm = commit -m
-	lg = log --graph
-	lp = log -p --stat
-	lo = log --pretty=oneline
-	st = status -sb
+  co = checkout
+  f = fetch
+  s = status
+  d = diff
+  cm = commit -m
+  lg = log --graph
+  lp = log -p --stat
+  lo = log --pretty=oneline
+  st = status -sb
